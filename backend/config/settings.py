@@ -68,34 +68,60 @@ ASGI_APPLICATION = 'config.asgi.application'
 import dj_database_url
 
 # Database Settings
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME', os.getenv('MYSQLDATABASE', 'virtual_study_group')),
-        'USER': os.getenv('DB_USER', os.getenv('MYSQLUSER', 'root')),
-        'PASSWORD': os.getenv('DB_PASSWORD', os.getenv('MYSQLPASSWORD', '')),
-        'HOST': os.getenv('DB_HOST', os.getenv('MYSQLHOST', 'localhost')),
-        'PORT': os.getenv('DB_PORT', os.getenv('MYSQLPORT', '3306')),
-    }
-}
-
-# Priority 1: Use DATABASE_URL or MYSQL_URL if available
+# Priority 1: Use DATABASE_URL or MYSQL_URL if available (Railway sets these)
 db_url = os.getenv('DATABASE_URL') or os.getenv('MYSQL_URL')
+
 if db_url:
-    # Replace mysql:// with mysqlclient:// to ensure dj-database-url uses the correct engine
+    # Replace mysql:// with mysqlclient:// so dj-database-url uses the correct Django engine
     if db_url.startswith('mysql://'):
         db_url = db_url.replace('mysql://', 'mysqlclient://', 1)
     
-    DATABASES['default'] = dj_database_url.parse(db_url)
+    DATABASES = {
+        'default': dj_database_url.parse(db_url)
+    }
     DATABASES['default']['CONN_MAX_AGE'] = 600
+    print(f"[DB] Using DATABASE_URL -> Host: {DATABASES['default'].get('HOST')}")
 
-# Priority 2: If running on Google Cloud (Cloud Run), use the unix socket
+# Priority 2: Use Railway's individual MYSQL* variables
+elif os.getenv('MYSQLHOST'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv('MYSQLDATABASE', 'railway'),
+            'USER': os.getenv('MYSQLUSER', 'root'),
+            'PASSWORD': os.getenv('MYSQLPASSWORD', ''),
+            'HOST': os.getenv('MYSQLHOST'),
+            'PORT': os.getenv('MYSQLPORT', '3306'),
+        }
+    }
+    print(f"[DB] Using MYSQLHOST -> Host: {DATABASES['default']['HOST']}")
+
+# Priority 3: Google Cloud Run with Cloud SQL unix socket
 elif os.getenv('K_SERVICE'):
-    DATABASES['default']['HOST'] = f"/cloudsql/{os.getenv('DB_HOST')}"
-    DATABASES['default'].pop('PORT', None)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv('DB_NAME', 'virtual_study_group'),
+            'USER': os.getenv('DB_USER', 'root'),
+            'PASSWORD': os.getenv('DB_PASSWORD', ''),
+            'HOST': f"/cloudsql/{os.getenv('DB_HOST')}",
+        }
+    }
+    print(f"[DB] Using Cloud SQL -> Host: {DATABASES['default']['HOST']}")
 
-# Debug: Print the host being used (helps troubleshooting)
-print(f"Connecting to database at: {DATABASES['default'].get('HOST')}")
+# Priority 4: Local development (from .env file)
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv('DB_NAME', 'virtual_study_group'),
+            'USER': os.getenv('DB_USER', 'root'),
+            'PASSWORD': os.getenv('DB_PASSWORD', ''),
+            'HOST': os.getenv('DB_HOST', 'localhost'),
+            'PORT': os.getenv('DB_PORT', '3306'),
+        }
+    }
+    print(f"[DB] Using local config -> Host: {DATABASES['default']['HOST']}")
 
 
 # Password validation
