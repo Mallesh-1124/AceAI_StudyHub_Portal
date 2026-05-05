@@ -64,7 +64,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.asgi.application'
 
-# Database — MySQL for production
+# Database Settings
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -75,6 +75,12 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', '3306'),
     }
 }
+
+# If running on Google Cloud (Cloud Run), use the unix socket for Cloud SQL
+if os.getenv('K_SERVICE'):
+    DATABASES['default']['HOST'] = f"/cloudsql/{os.getenv('DB_HOST')}"
+    # Remove port for unix socket
+    DATABASES['default'].pop('PORT', None)
 
 
 # Password validation

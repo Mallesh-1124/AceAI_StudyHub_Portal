@@ -23,8 +23,11 @@ RUN pip install gunicorn uvicorn
 # Copy project
 COPY . /app/
 
-# Expose port
-EXPOSE 8000
+# Make entrypoint script executable
+RUN chmod +x /app/entrypoint.sh
+
+# Expose port (Cloud Run uses 8080)
+EXPOSE 8080
 
 # Run the application
-CMD ["uvicorn", "config.asgi:application", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT ["/app/entrypoint.sh"]
