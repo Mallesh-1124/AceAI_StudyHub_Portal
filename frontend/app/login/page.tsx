@@ -72,7 +72,7 @@ export default function LoginPage() {
             </CardTitle>
             <CardDescription>
               {isLogin
-                ? "Sign in to your StudyGroup account"
+                ? "Sign in to your AceAI StudyHub account"
                 : "Join thousands of students learning together"}
             </CardDescription>
           </CardHeader>

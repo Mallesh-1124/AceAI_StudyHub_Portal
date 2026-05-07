@@ -1,5 +1,5 @@
 """
-ASGI config for Virtual Study Group project.
+ASGI config for AceAI StudyHub project.
 Supports HTTP and WebSocket protocols via Django Channels.
 """
 import os

@@ -1,5 +1,5 @@
 """
-Django settings for Virtual Study Group project.
+Django settings for AceAI StudyHub project.
 """
 import os
 from pathlib import Path

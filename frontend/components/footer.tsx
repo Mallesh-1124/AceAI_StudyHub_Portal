@@ -17,7 +17,7 @@ export function Footer() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
                 <BookOpen className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="text-xl font-semibold text-foreground">StudyGroup</span>
+              <span className="text-xl font-semibold text-foreground">AceAI StudyHub</span>
             </Link>
             <p className="mt-4 text-sm text-muted-foreground">
               AI-powered collaborative learning for students worldwide.
@@ -45,7 +45,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
           <p className="text-sm text-muted-foreground">
-            © 2026 Virtual Study Group. All rights reserved.
+            © 2026 AceAI StudyHub. All rights reserved.
           </p>
           <p className="flex items-center gap-1 text-sm text-muted-foreground">
             Built with <Heart className="h-3 w-3 text-red-500" /> by students worldwide

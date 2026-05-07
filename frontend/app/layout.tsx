@@ -11,7 +11,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Virtual Study Group - Study Together, Anywhere',
+  title: 'AceAI StudyHub - Study Together, Anywhere',
   description: 'AI-powered collaborative learning platform with live video study rooms, AI teacher guidance, and structured learning.',
   generator: 'v0.app',
   icons: {

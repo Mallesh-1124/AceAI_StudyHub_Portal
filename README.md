@@ -1,8 +1,8 @@
-# 🎓 Virtual Study Group Portal
+# 🎓 AceAI StudyHub Portal
 
 ![VSG Banner](./vsg_banner.png)
 
-**Virtual Study Group** is a powerful, AI-integrated collaborative learning platform designed to make remote studying more engaging, structured, and effective. Students can join live video study rooms, collaborate on shared resources, and get real-time guidance from a dedicated AI teacher.
+**AceAI StudyHub** is a powerful, AI-integrated collaborative learning platform designed to make remote studying more engaging, structured, and effective. Students can join live video study rooms, collaborate on shared resources, and get real-time guidance from a dedicated AI teacher.
 
 ---
 

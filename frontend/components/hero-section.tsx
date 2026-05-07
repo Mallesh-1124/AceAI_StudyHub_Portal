@@ -81,7 +81,7 @@ export function HeroSection() {
               <div className="aspect-video rounded-lg bg-muted/50 relative overflow-hidden">
                 <img
                   src="/images/vsg.png"
-                  alt="Virtual Study Group Preview"
+                  alt="AceAI StudyHub Preview"
                   className="w-full h-full object-cover object-top"
                 />
               </div>
