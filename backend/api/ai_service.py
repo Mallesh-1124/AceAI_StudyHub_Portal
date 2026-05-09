@@ -71,7 +71,7 @@ def ask_ai_teacher(question, room, recent_messages=None):
         'hard': "Provide rigorous, detailed explanations. Challenge the student with follow-up problems. Use advanced terminology.",
     }
 
-    prompt = f"""You are a professional AI Teacher in a virtual study room.
+    prompt = f"""You are a professional AI Teacher in a AceAI StudyHub.
 
 SUBJECT: {room.subject or 'General'}
 STYLE: {style_instructions.get(room.ai_teaching_style, style_instructions['direct'])}

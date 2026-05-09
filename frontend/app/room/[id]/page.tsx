@@ -587,7 +587,7 @@ export default function RoomPage() {
       {/* Main content */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-1 overflow-hidden min-h-0">
         {/* Video area */}
-        <div className="flex flex-col p-2 sm:p-4 overflow-hidden border-b lg:border-b-0 lg:border-r border-border bg-muted/20 lg:col-span-2 h-[45vh] lg:h-full min-h-0">
+        <div className="flex flex-col p-2 sm:p-4 overflow-hidden border-b lg:border-b-0 lg:border-r border-border bg-muted/20 lg:col-span-2 h-[38vh] sm:h-[45vh] lg:h-full min-h-0">
           <div className="grid grid-cols-2 gap-2 sm:gap-3 flex-1 min-h-[300px]">
             {/* Local video */}
             <div className="relative rounded-lg bg-muted overflow-hidden flex items-center justify-center border border-border shadow-sm">
@@ -639,28 +639,28 @@ export default function RoomPage() {
           </div>
 
           {/* Media controls */}
-          <div className="py-4 flex items-center justify-center gap-4 shrink-0">
+          <div className="py-2 sm:py-4 flex items-center justify-center gap-3 sm:gap-4 shrink-0">
             <Button 
               size="icon" 
               variant={micOn ? "secondary" : "destructive"} 
-              className={`h-12 w-12 rounded-full shadow-lg transition-all ${micOn ? 'hover:bg-primary/20 hover:text-primary' : ''}`} 
+              className={`h-10 w-10 sm:h-12 sm:w-12 rounded-full shadow-lg transition-all ${micOn ? 'hover:bg-primary/20 hover:text-primary' : ''}`} 
               onClick={toggleMic}
             >
-              {micOn ? <Mic className="h-5 w-5" /> : <MicOff className="h-5 w-5" />}
+              {micOn ? <Mic className="h-4 w-4 sm:h-5 sm:w-5" /> : <MicOff className="h-4 w-4 sm:h-5 sm:w-5" />}
             </Button>
             <Button 
               size="icon" 
               variant={videoOn ? "secondary" : "destructive"} 
-              className={`h-12 w-12 rounded-full shadow-lg transition-all ${videoOn ? 'hover:bg-primary/20 hover:text-primary' : ''}`} 
+              className={`h-10 w-10 sm:h-12 sm:w-12 rounded-full shadow-lg transition-all ${videoOn ? 'hover:bg-primary/20 hover:text-primary' : ''}`} 
               onClick={toggleVideo}
             >
-              {videoOn ? <Video className="h-5 w-5" /> : <VideoOff className="h-5 w-5" />}
+              {videoOn ? <Video className="h-4 w-4 sm:h-5 sm:w-5" /> : <VideoOff className="h-4 w-4 sm:h-5 sm:w-5" />}
             </Button>
-            <Button size="icon" variant="secondary" className="h-12 w-12 rounded-full shadow-lg hover:bg-primary/20 hover:text-primary hidden xs:flex">
-              <MonitorUp className="h-5 w-5" />
+            <Button size="icon" variant="secondary" className="h-10 w-10 sm:h-12 sm:w-12 rounded-full shadow-lg hover:bg-primary/20 hover:text-primary hidden xs:flex">
+              <MonitorUp className="h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
-            <Button size="icon" variant="destructive" className="h-12 w-12 rounded-full shadow-xl hover:scale-105 active:scale-95 transition-transform" onClick={handleLeave}>
-              <PhoneOff className="h-5 w-5" />
+            <Button size="icon" variant="destructive" className="h-10 w-10 sm:h-12 sm:w-12 rounded-full shadow-xl hover:scale-105 active:scale-95 transition-transform" onClick={handleLeave}>
+              <PhoneOff className="h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
           </div>
         </div>
@@ -668,7 +668,7 @@ export default function RoomPage() {
         {/* Sidebar with tabs */}
         <div className="flex flex-col overflow-hidden h-full min-h-0 bg-card/30 backdrop-blur-sm lg:col-span-1">
           {/* Tab buttons */}
-          <div className="flex border-b border-border">
+          <div className="flex border-b border-border bg-card/50">
             {[
               { id: "chat" as SidebarTab, label: "Chat", icon: MessageSquare },
               { id: "summary" as SidebarTab, label: "Summary", icon: FileText },
@@ -678,14 +678,15 @@ export default function RoomPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-3 text-xs font-medium transition-colors border-b-2 ${
+                className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 py-2 sm:py-3 text-[10px] sm:text-xs font-medium transition-colors border-b-2 ${
                   activeTab === tab.id
-                    ? "border-primary text-primary"
+                    ? "border-primary text-primary bg-primary/5"
                     : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
-                <tab.icon className="h-3.5 w-3.5" />
-                {tab.label}
+                <tab.icon className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                <span className="hidden xs:inline">{tab.label}</span>
+                <span className="xs:hidden">{tab.label.substring(0, 1)}</span>
               </button>
             ))}
           </div>
