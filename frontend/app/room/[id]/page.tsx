@@ -16,6 +16,8 @@ import {
   FileText, Brain, CheckCircle2, XCircle, ChevronRight,
   BookOpen, Lightbulb, Target, MessageSquare,
 } from "lucide-react"
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import {
   getRoom, getMe, getRoomMessages, joinRoom, leaveRoom, askAI,
   generateSummary, generateQuiz, evaluateQuiz,
@@ -724,7 +726,16 @@ export default function RoomPage() {
                             msg.is_ai ? "bg-amber-500/10 border border-amber-500/20 text-foreground rounded-tl-none backdrop-blur-sm" : 
                             "bg-muted/50 border border-border/50 text-foreground rounded-tl-none"}
                         `}>
-                          {msg.content}
+                          {msg.is_ai ? (
+                            <ReactMarkdown 
+                              remarkPlugins={[remarkGfm]}
+                              className="prose prose-sm dark:prose-invert max-w-none prose-p:leading-relaxed prose-pre:bg-muted/50 prose-pre:p-2 prose-pre:rounded-md prose-code:text-xs prose-code:bg-primary/5 prose-code:px-1 prose-code:rounded"
+                            >
+                              {msg.content}
+                            </ReactMarkdown>
+                          ) : (
+                            <p className="whitespace-pre-wrap">{msg.content}</p>
+                          )}
                         </div>
                       </div>
                     )

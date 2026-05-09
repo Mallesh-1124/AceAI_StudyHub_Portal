@@ -25,7 +25,7 @@ def get_model():
     return _model
 
 
-def call_gemini(prompt, max_tokens=2048):
+def call_gemini(prompt, max_tokens=1024):
     """Call Gemini API with a prompt and return text response."""
     try:
         model = get_model()
@@ -33,7 +33,7 @@ def call_gemini(prompt, max_tokens=2048):
             prompt,
             generation_config={
                 'max_output_tokens': max_tokens,
-                'temperature': 0.7,
+                'temperature': 0.4,  # Lower temperature for more consistent, direct answers
             }
         )
         return response.text
@@ -71,23 +71,27 @@ def ask_ai_teacher(question, room, recent_messages=None):
         'hard': "Provide rigorous, detailed explanations. Challenge the student with follow-up problems. Use advanced terminology.",
     }
 
-    prompt = f"""You are an AI Teacher Assistant in a virtual study room.
+    prompt = f"""You are a professional AI Teacher in a virtual study room.
 
 SUBJECT: {room.subject or 'General'}
-TEACHING STYLE: {style_instructions.get(room.ai_teaching_style, style_instructions['guided'])}
-DIFFICULTY LEVEL: {difficulty_instructions.get(room.ai_difficulty, difficulty_instructions['medium'])}
-ADMIN INSTRUCTIONS: {room.ai_instructions or 'Help students learn effectively.'}
+STYLE: {style_instructions.get(room.ai_teaching_style, style_instructions['direct'])}
+LEVEL: {difficulty_instructions.get(room.ai_difficulty, difficulty_instructions['medium'])}
+ADMIN INSTRUCTIONS: {room.ai_instructions or 'Be direct and helpful.'}
 
-{"RECENT CHAT CONTEXT:" + chr(10) + chat_context if chat_context else ""}
+{"RECENT CONTEXT:" + chr(10) + chat_context if chat_context else ""}
 
 STUDENT QUESTION: {question}
 
-Respond as a helpful, encouraging teacher. Use markdown formatting (bold, lists, code blocks) where appropriate. 
-Keep your response focused and under 300 words unless the topic requires more detail.
-If the question is about a math/science problem, show your work step by step.
-End with an encouraging note or a follow-up question to keep the student engaged."""
+RESPONSE RULES:
+1. BE BRIEF: If the answer is a simple fact or calculation (e.g., 1+1), give the result immediately and a 1-sentence explanation.
+2. FORMATTING: Use **bold** for final answers and key terms. Use code blocks for math formulas.
+3. STRUCTURE: No long introductions like "Excellent question!" or "Let's explore this together." Start directly with the answer or the first step.
+4. WORD LIMIT: Strictly keep responses under 150 words.
+5. COMPLEXITY: Only provide a step-by-step breakdown if the problem is genuinely multi-step or requested.
+6. TONE: Professional and concise. Avoid over-encouraging filler words.
+"""
 
-    return call_gemini(prompt)
+    return call_gemini(prompt, max_tokens=512)
 
 
 # ─── Session Summary ─────────────────────────────────────────
