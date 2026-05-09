@@ -728,12 +728,11 @@ export default function RoomPage() {
                             "bg-muted/50 border border-border/50 text-foreground rounded-tl-none"}
                         `}>
                           {msg.is_ai ? (
-                            <ReactMarkdown 
-                              remarkPlugins={[remarkGfm]}
-                              className="prose prose-sm dark:prose-invert max-w-none prose-p:leading-relaxed prose-pre:bg-muted/50 prose-pre:p-2 prose-pre:rounded-md prose-code:text-xs prose-code:bg-primary/5 prose-code:px-1 prose-code:rounded"
-                            >
-                              {msg.content}
-                            </ReactMarkdown>
+                            <div className="prose prose-sm dark:prose-invert max-w-none prose-p:leading-relaxed prose-pre:bg-muted/50 prose-pre:p-2 prose-pre:rounded-md prose-code:text-xs prose-code:bg-primary/5 prose-code:px-1 prose-code:rounded">
+                              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {msg.content}
+                              </ReactMarkdown>
+                            </div>
                           ) : (
                             <p className="whitespace-pre-wrap">{msg.content}</p>
                           )}
