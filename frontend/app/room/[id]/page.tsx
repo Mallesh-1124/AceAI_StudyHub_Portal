@@ -583,9 +583,9 @@ export default function RoomPage() {
       </header>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col lg:grid lg:grid-cols-3 overflow-hidden">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-1 overflow-hidden min-h-0">
         {/* Video area */}
-        <div className="flex flex-col p-2 sm:p-4 overflow-hidden border-b lg:border-b-0 lg:border-r border-border bg-muted/20 lg:col-span-2 h-[45vh] lg:h-auto">
+        <div className="flex flex-col p-2 sm:p-4 overflow-hidden border-b lg:border-b-0 lg:border-r border-border bg-muted/20 lg:col-span-2 h-[45vh] lg:h-full min-h-0">
           <div className="grid grid-cols-2 gap-2 sm:gap-3 flex-1 min-h-[300px]">
             {/* Local video */}
             <div className="relative rounded-lg bg-muted overflow-hidden flex items-center justify-center border border-border shadow-sm">
@@ -664,7 +664,7 @@ export default function RoomPage() {
         </div>
 
         {/* Sidebar with tabs */}
-        <div className="flex flex-col overflow-hidden h-full min-h-0 bg-card/30 backdrop-blur-sm">
+        <div className="flex flex-col overflow-hidden h-full min-h-0 bg-card/30 backdrop-blur-sm lg:col-span-1">
           {/* Tab buttons */}
           <div className="flex border-b border-border">
             {[
@@ -691,7 +691,7 @@ export default function RoomPage() {
           {/* ─── Chat Tab ─── */}
           {activeTab === "chat" && (
             <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
-              <ScrollArea className="flex-1 px-4 py-2">
+              <div className="flex-1 overflow-y-auto px-4 py-2 custom-scrollbar">
                 <div className="space-y-4 pt-2">
                   {messages.map((msg) => {
                     const isSystem = msg.sender_name === "System"
@@ -731,7 +731,7 @@ export default function RoomPage() {
                   })}
                   <div ref={messagesEndRef} />
                 </div>
-              </ScrollArea>
+              </div>
 
               {/* AI Ask section */}
               <div className="border-t border-border p-3 bg-gradient-to-r from-primary/5 to-amber-500/5 shrink-0">
@@ -774,7 +774,7 @@ export default function RoomPage() {
 
           {/* ─── Summary Tab ─── */}
           {activeTab === "summary" && (
-            <ScrollArea className="flex-1 p-4">
+            <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
               <div className="space-y-4">
                 <div className="text-center">
                   <FileText className="h-8 w-8 mx-auto text-primary mb-2" />
@@ -878,12 +878,12 @@ export default function RoomPage() {
                   </div>
                 )}
               </div>
-            </ScrollArea>
+            </div>
           )}
 
           {/* ─── Quiz Tab ─── */}
           {activeTab === "quiz" && (
-            <ScrollArea className="flex-1 p-4">
+            <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
               <div className="space-y-4">
                 <div className="text-center">
                   <Brain className="h-8 w-8 mx-auto text-purple-500 mb-2" />
@@ -1001,12 +1001,12 @@ export default function RoomPage() {
                   </div>
                 )}
               </div>
-            </ScrollArea>
+            </div>
           )}
 
           {/* ─── Resources Tab ─── */}
           {activeTab === "resources" && (
-            <ScrollArea className="flex-1 p-4">
+            <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
               <div className="space-y-4">
                 <div className="text-center">
                   <BookOpen className="h-8 w-8 mx-auto text-cyan-500 mb-2" />
@@ -1125,7 +1125,7 @@ export default function RoomPage() {
                   )}
                 </div>
               </div>
-            </ScrollArea>
+            </div>
           )}
         </div>
       </div>
