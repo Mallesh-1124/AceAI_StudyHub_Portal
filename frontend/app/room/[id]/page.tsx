@@ -202,8 +202,10 @@ export default function RoomPage() {
   useEffect(() => {
     if (!user) return
 
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
+    const apiHost = new URL(apiUrl).host
     const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
-    const wsUrl = `${wsProtocol}//localhost:8000/ws/room/${roomId}/`
+    const wsUrl = `${wsProtocol}//${apiHost}/ws/room/${roomId}/`
     const ws = new WebSocket(wsUrl)
     wsRef.current = ws
 
@@ -583,6 +585,17 @@ export default function RoomPage() {
           </div>
         </div>
       </header>
+
+      {/* Room Info Bar */}
+      <div className="px-4 py-1.5 bg-muted/30 border-b border-border/50 flex items-center justify-between text-[10px] sm:text-xs">
+        <div className="flex items-center gap-2">
+          <span className="text-muted-foreground">Admin:</span>
+          <span className="font-semibold text-primary">{room?.created_by?.username || "Unknown"}</span>
+        </div>
+        <div className="flex items-center gap-2 text-muted-foreground">
+          <span>Created on {new Date(room?.created_at || Date.now()).toLocaleDateString()}</span>
+        </div>
+      </div>
 
       {/* Main content */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-1 overflow-hidden min-h-0">

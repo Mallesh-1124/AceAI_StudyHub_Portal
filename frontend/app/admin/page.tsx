@@ -226,14 +226,16 @@ export default function AdminPage() {
                         {room.member_count}
                       </div>
                       <div className="flex items-center gap-1">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          className="h-8 w-8 p-0 text-destructive hover:text-destructive"
-                          onClick={() => handleDeleteRoom(room.id)}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
+                        {user && room.created_by?.id === user.id && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="h-8 w-8 p-0 text-destructive hover:text-destructive"
+                            onClick={() => handleDeleteRoom(room.id)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        )}
                         <Link href={`/room/${room.id}`}>
                           <Button size="sm" className="h-8 text-xs gap-1 px-3">
                             Join <ArrowRight className="h-3 w-3" />
