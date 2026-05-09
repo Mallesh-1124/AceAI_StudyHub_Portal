@@ -12,5 +12,8 @@ python manage.py migrate --noinput
 echo "Seeding badges..."
 python seed_badges.py
 
+echo "Ensuring admin user exists..."
+python manage.py ensure_admin
+
 echo "Starting server..."
 exec uvicorn config.asgi:application --host 0.0.0.0 --port 8080

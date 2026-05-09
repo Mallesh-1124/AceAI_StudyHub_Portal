@@ -575,9 +575,9 @@ export default function RoomPage() {
       </header>
 
       {/* Main content */}
-      <div className="flex-1 grid lg:grid-cols-3 overflow-hidden">
+      <div className="flex-1 flex flex-col lg:grid lg:grid-cols-3 overflow-hidden">
         {/* Video area */}
-        <div className="lg:col-span-2 flex flex-col p-3 sm:p-4 overflow-hidden border-b lg:border-b-0 lg:border-r border-border">
+        <div className="flex flex-col p-2 sm:p-4 overflow-hidden border-b lg:border-b-0 lg:border-r border-border bg-muted/20 lg:col-span-2 h-[45vh] lg:h-auto">
           <div className="grid grid-cols-2 gap-2 sm:gap-3 flex-1 min-h-[300px]">
             {/* Local video */}
             <div className="relative rounded-lg bg-muted overflow-hidden flex items-center justify-center border border-border shadow-sm">
@@ -629,17 +629,17 @@ export default function RoomPage() {
           </div>
 
           {/* Media controls */}
-          <div className="mt-4 flex items-center justify-center gap-3">
-            <Button size="icon" variant={micOn ? "outline" : "destructive"} className="h-11 w-11 rounded-full" onClick={toggleMic}>
+          <div className="py-2 sm:mt-4 flex items-center justify-center gap-2 sm:gap-3 shrink-0">
+            <Button size="icon" variant={micOn ? "outline" : "destructive"} className="h-9 w-9 sm:h-11 sm:w-11 rounded-full" onClick={toggleMic}>
               {micOn ? <Mic className="h-4 w-4" /> : <MicOff className="h-4 w-4" />}
             </Button>
-            <Button size="icon" variant={videoOn ? "outline" : "destructive"} className="h-11 w-11 rounded-full" onClick={toggleVideo}>
+            <Button size="icon" variant={videoOn ? "outline" : "destructive"} className="h-9 w-9 sm:h-11 sm:w-11 rounded-full" onClick={toggleVideo}>
               {videoOn ? <Video className="h-4 w-4" /> : <VideoOff className="h-4 w-4" />}
             </Button>
-            <Button size="icon" variant="outline" className="h-11 w-11 rounded-full">
+            <Button size="icon" variant="outline" className="h-9 w-9 sm:h-11 sm:w-11 rounded-full hidden xs:flex">
               <MonitorUp className="h-4 w-4" />
             </Button>
-            <Button size="icon" variant="destructive" className="h-11 w-11 rounded-full" onClick={handleLeave}>
+            <Button size="icon" variant="destructive" className="h-9 w-9 sm:h-11 sm:w-11 rounded-full" onClick={handleLeave}>
               <PhoneOff className="h-4 w-4" />
             </Button>
           </div>
